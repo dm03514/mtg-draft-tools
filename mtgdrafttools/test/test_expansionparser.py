@@ -17,6 +17,28 @@ class TestExpansionParser(unittest.TestCase):
         cards_list = parse_expansion_file(expansion_txt_file_location)
         self.assertEqual(len(cards_list), 166)
 
+    def test_parse_expansion_file_into_cards_include_basic_lands(self):
+        """
+        Make sure that basic lands are included in the parse_expansion_file
+        """
+        script_location = os.path.abspath(os.path.dirname(__file__))
+        expansion_txt_file_location = os.path.join(script_location, '..', '..', 
+                                                   'expansions', 'M14.txt')
+        cards_list = parse_expansion_file(expansion_txt_file_location, 
+                                          include_basic_lands=True)
+        self.assertEqual(len(cards_list), 249)
+        #import ipdb; ipdb.set_trace();
+
+    def test_parse_expansion_file_into_cards_no_basic_lands(self):
+        """
+        Make sure that basic lands are NOT included in the parse_expansion_file
+        """
+        script_location = os.path.abspath(os.path.dirname(__file__))
+        expansion_txt_file_location = os.path.join(script_location, '..', '..', 
+                                                   'expansions', 'M14.txt')
+        cards_list = parse_expansion_file(expansion_txt_file_location)
+        self.assertEqual(len(cards_list), 229)
+
     def test_parse_card_multiple_card_text_lines_activated_ability(self):
         """
         Tests that when a card has multiple card text lines, all card text lines are

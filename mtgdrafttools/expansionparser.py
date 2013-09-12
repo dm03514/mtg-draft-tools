@@ -4,7 +4,7 @@ import itertools
 from cards import Card
 
 
-def parse_expansion_file(path):
+def parse_expansion_file(path, include_basic_lands=False):
     """
     Reads a MWS expansion text file into a set of Card objects.
     @param path string
@@ -13,7 +13,11 @@ def parse_expansion_file(path):
     with open(path) as f:
 
         sections = _get_sections(f)
-        return [_parse_card(card_lines_list) for card_lines_list in sections]
+        cards_list = [_parse_card(card_lines_list) for card_lines_list in sections]
+        if not include_basic_lands:
+            cards_list = [card for card in cards_list 
+                            if 'Basic Land' not in card.type_and_class]
+        return cards_list
 
 
 def sort_by_rarity(cards_list):
