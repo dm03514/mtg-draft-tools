@@ -7,17 +7,25 @@ class Pack(object):
     def __init__(self, cards):
         self.cards = cards
 
+    def _filter_by_rarity(self, rarity):
+        """
+        Filters the current cards by rarity symbol
+        @rarity string 'R', 'U', 'C'
+        @return list
+        """
+        return [card for card in self.cards if card.rarity == rarity]
+
     @property
     def rares(self):
-        return [card for card in self.cards if card.rarity == 'R']
+        return self._filter_by_rarity('R')
 
     @property
     def uncommons(self):
-        return [card for card in self.cards if card.rarity == 'U']
+        return self._filter_by_rarity('U')
 
     @property
     def commons(self):
-        return [card for card in self.cards if card.rarity == 'C']
+        return self._filter_by_rarity('C')
 
     def __repr__(self):
         """
