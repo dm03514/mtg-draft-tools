@@ -56,9 +56,7 @@ def _parse_card(card_lines):
     card_data_dict = {}
     # the value in the file are seperated by a tab (\t) so strip that
     # and remap the keys
-    print(card_lines)
     last_key = None
-    import ipdb; ipdb.set_trace();
     for line_str in card_lines:
         try:
             key, value = line_str.split(':') 
@@ -67,33 +65,19 @@ def _parse_card(card_lines):
             # line can't be stripped, if last key was Card Text add it to the card text
             if last_key == 'Card Text':
                 card_data_dict[key_map['Card Text']].append(line_str.strip())     
-
+            elif line_str.startswith('Card Text:'):
+                value = line_str.replace('Card Text:\t', '')
+                card_data_dict[key_map['Card Text']] = [value.strip() or None]
+                last_key = 'Card Text'
         else:
             # splitting was successfull make sure that the key is in the key map
             if key not in key_map.keys() and last_key == 'Card Text':
-                card_data_dict[key_map['Card Text']].append(line_str.strip())     
+                card_data_dict[key_map['Card Text']].append(line_str.strip())
+            elif key == 'Card Text':
+                card_data_dict[key_map['Card Text']] = [value.strip() or None]
+                last_key = key
             else:
                 card_data_dict[key_map[key]] = value.strip() or None
                 last_key = key
-
-            
-    """
-    # this is a normal attribute split and add key,value to dict
-    if line_str.startswith('Card Text:') and last_key != 'Card Text':
-        import ipdb; ipdb.set_trace();
-        value = line_str.replace('Card Text:\t', '')
-        key = 'Card Text'
-        card_data_dict[key_map[key]] = [value.strip() or None]
-        last_key = key
-
-    elif last_key == 'Card Text':
-        card_data_dict[key_map['Card Text']].append(line_str.strip())     
-
-    else:
-        key, value = line_str.split(':') 
-        card_data_dict[key_map[key]] = value.strip() or None
-        last_key = key
-    """
-
 
     return Card(**card_data_dict)
