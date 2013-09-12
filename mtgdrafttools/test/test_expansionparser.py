@@ -2,10 +2,10 @@ import os
 import unittest
 
 from cards import Card
-from expansions import parse_expansion_file, _parse_card
+from expansionparser import parse_expansion_file, _parse_card
 
 
-class TestExpansions(unittest.TestCase):
+class TestExpansionParser(unittest.TestCase):
 
     def test_parse_expansion_file_into_cards(self):
         """
@@ -14,7 +14,8 @@ class TestExpansions(unittest.TestCase):
         """
         script_location = os.path.abspath(os.path.dirname(__file__))
         expansion_txt_file_location = os.path.join(script_location, '..', '..', 'expansions', 'DGM.txt')
-        cards_set = parse_expansion_file(expansion_txt_file_location)
+        cards_list = parse_expansion_file(expansion_txt_file_location)
+        self.assertEqual(len(cards_list), 166)
         #import ipdb; ipdb.set_trace();
 
     def test_parse_card_multiple_card_text_lines_activated_ability(self):

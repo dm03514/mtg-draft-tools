@@ -9,3 +9,6 @@ class Card(object):
         """
         for key, value in attributes.items():
             setattr(self, key, value)
+
+    def __unicode__(self):
+        return self.name

@@ -7,12 +7,12 @@ def parse_expansion_file(path):
     """
     Reads a MWS expansion text file into a set of Card objects.
     @param path string
-    @return set
+    @return list of Card 
     """
     with open(path) as f:
 
         sections = _get_sections(f)
-        return {_parse_card(card_lines_list) for card_lines_list in sections}
+        return [_parse_card(card_lines_list) for card_lines_list in sections]
 
 
 def _get_sections(f):
