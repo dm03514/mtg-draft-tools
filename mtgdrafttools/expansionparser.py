@@ -33,6 +33,10 @@ def _get_sections(f):
         else:
             yield current_section
             current_section = []
+    else:
+        # the file does not end with a new line make sure to yield
+        # the last card
+        yield current_section
 
 
 def _parse_card(card_lines):
