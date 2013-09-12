@@ -16,7 +16,7 @@ class TestExpansionParser(unittest.TestCase):
         expansion_txt_file_location = os.path.join(script_location, '..', '..', 'expansions', 'DGM.txt')
         cards_list = parse_expansion_file(expansion_txt_file_location)
         self.assertEqual(len(cards_list), 166)
-        import ipdb; ipdb.set_trace();
+        #import ipdb; ipdb.set_trace();
 
     def test_parse_card_multiple_card_text_lines_activated_ability(self):
         """
