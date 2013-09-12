@@ -1,3 +1,4 @@
+from collections import defaultdict
 import itertools
 
 from cards import Card
@@ -13,6 +14,16 @@ def parse_expansion_file(path):
 
         sections = _get_sections(f)
         return [_parse_card(card_lines_list) for card_lines_list in sections]
+
+
+def sort_by_rarity(cards_list):
+    """
+    Given a list of cards returns a dictionary of cards sorted by rarities.
+    """
+    cards_by_rarity = defaultdict(list)
+    for card in cards_list:
+        cards_by_rarity[card.rarity].append(card)
+    return cards_by_rarity
 
 
 def _get_sections(f):

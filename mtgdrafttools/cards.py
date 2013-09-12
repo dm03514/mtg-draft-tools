@@ -10,5 +10,12 @@ class Card(object):
         for key, value in attributes.items():
             setattr(self, key, value)
 
-    def __unicode__(self):
-        return self.name
+    def __repr__(self):
+        """
+        Call the str method so we can see the card name in the terminal.
+        is this kosher?
+        """
+        return str(self)
+
+    def __str__(self):
+        return 'Card: {}'.format(self.name)
