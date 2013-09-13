@@ -18,4 +18,4 @@ class Card(object):
         return str(self)
 
     def __str__(self):
-        return 'Card: {}'.format(self.name)
+        return '<Card: {}>'.format(self.name)

@@ -35,7 +35,7 @@ class Pack(object):
         return str(self)
 
     def __str__(self):
-        return 'Pack: {} cards'.format(len(self.cards))
+        return '<Pack: {} cards>'.format(len(self.cards))
 
 
 def generate_pack(expansion_by_rarity):
