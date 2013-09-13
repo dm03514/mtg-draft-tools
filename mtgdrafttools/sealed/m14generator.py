@@ -1,5 +1,6 @@
 import os
 
+from mtgdrafttools import settings
 from mtgdrafttools.expansionparser import parse_expansion_file
 from mtgdrafttools.sealed.base_generator import BaseGenerator
 
@@ -11,8 +12,7 @@ class M14SealedPoolGenerator(BaseGenerator):
         Generate a sealed (6 pack m2014 pool)
         @return list of cards in the pool
         """
-        script_location = os.path.abspath(os.path.dirname(__file__))
-        expansion_txt_file_location = os.path.join(script_location, '..', '..', 'data', 'M14.txt')
+        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'M14.txt')
         expansion = parse_expansion_file(expansion_txt_file_location)
         cards_list = []
         NUM_PACKS_IN_POOL = 6

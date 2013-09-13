@@ -1,6 +1,7 @@
 import os
 import unittest
 
+from mtgdrafttools import settings
 from mtgdrafttools.expansionparser import parse_expansion_file
 from mtgdrafttools.serializers.generic import GenericSerializer
 
@@ -12,8 +13,7 @@ class TestGenericSerializer(unittest.TestCase):
         Tests that a pack can successfully be serialized.
         """
         # generate a pack
-        script_location = os.path.abspath(os.path.dirname(__file__))
-        expansion_txt_file_location = os.path.join(script_location, '..', '..', '..', 'data', 'DGM.txt')
+        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'DGM.txt')
         expansion = parse_expansion_file(expansion_txt_file_location)
         pack = expansion.generate_pack()
         cards_to_serialize = pack.cards + pack.cards

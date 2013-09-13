@@ -1,8 +1,9 @@
 import os
 import unittest
 
+from mtgdrafttools import settings
 from mtgdrafttools.expansions.cards import Card
-from expansionparser import parse_expansion_file, _parse_card
+from mtgdrafttools.expansionparser import parse_expansion_file, _parse_card
 
 
 class TestExpansionParser(unittest.TestCase):
@@ -12,8 +13,7 @@ class TestExpansionParser(unittest.TestCase):
         Tests that given an expansion text file in the MWS format we 
         can get a set of cards from it.
         """
-        script_location = os.path.abspath(os.path.dirname(__file__))
-        expansion_txt_file_location = os.path.join(script_location, '..', '..', 'data', 'DGM.txt')
+        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'DGM.txt')
         expansion = parse_expansion_file(expansion_txt_file_location)
         self.assertEqual(len(expansion.cards), 166)
 
@@ -21,9 +21,7 @@ class TestExpansionParser(unittest.TestCase):
         """
         Make sure that basic lands are included in the parse_expansion_file
         """
-        script_location = os.path.abspath(os.path.dirname(__file__))
-        expansion_txt_file_location = os.path.join(script_location, '..', '..', 
-                                                   'data', 'M14.txt')
+        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'M14.txt')
         expansion = parse_expansion_file(expansion_txt_file_location, 
                                           include_basic_lands=True)
         self.assertEqual(len(expansion.cards), 249)
@@ -33,9 +31,7 @@ class TestExpansionParser(unittest.TestCase):
         """
         Make sure that basic lands are NOT included in the parse_expansion_file
         """
-        script_location = os.path.abspath(os.path.dirname(__file__))
-        expansion_txt_file_location = os.path.join(script_location, '..', '..', 
-                                                   'data', 'M14.txt')
+        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'M14.txt')
         expansion = parse_expansion_file(expansion_txt_file_location)
         self.assertEqual(len(expansion.cards), 229)
 
