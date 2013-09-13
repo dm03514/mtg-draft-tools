@@ -11,7 +11,6 @@ def main():
     args = parser.parse_args()
 
     cards_list = generate_sealed_pool(args.block)
-    import ipdb; ipdb.set_trace();
 
     print(serializers.serialize('mws', cards_list))
 

@@ -12,7 +12,13 @@ Look in `bin` for a list of commands available.
 
 Right now there is only a command to generate homogonous sealed pools (same pack pools)
 
-To generate a sealed m2014 pool:
+To generate a sealed pool for m2014:
 
     cd mtgdrafttools
-    python bin/generate_packs.py ../data/M14.txt -np 6
+    python bin/generate_sealed.py m14
+
+
+Or for RTR block (2 packs of each expansion):
+
+    cd mtgdrafttools
+    python bin/generate_sealed.py m14
