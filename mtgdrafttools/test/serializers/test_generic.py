@@ -18,7 +18,6 @@ class TestGenericSerializer(unittest.TestCase):
         pack = expansion.generate_pack()
         cards_to_serialize = pack.cards + pack.cards
         serializer = GenericSerializer()
-        #import ipdb; ipdb.set_trace();
         serialized_cards = serializer.serialize(cards_to_serialize)
         #import ipdb; ipdb.set_trace();
         # go through each card that was supposed to be serialized and
