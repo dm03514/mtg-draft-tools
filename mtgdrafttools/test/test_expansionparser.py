@@ -1,8 +1,8 @@
 import os
 import unittest
 
-from cards import Card
-from expansionparser import parse_expansion_file, _parse_card, sort_by_rarity
+from mtgdrafttools.expansions.cards import Card
+from expansionparser import parse_expansion_file, _parse_card
 
 
 class TestExpansionParser(unittest.TestCase):
@@ -13,9 +13,9 @@ class TestExpansionParser(unittest.TestCase):
         can get a set of cards from it.
         """
         script_location = os.path.abspath(os.path.dirname(__file__))
-        expansion_txt_file_location = os.path.join(script_location, '..', '..', 'expansions', 'DGM.txt')
-        cards_list = parse_expansion_file(expansion_txt_file_location)
-        self.assertEqual(len(cards_list), 166)
+        expansion_txt_file_location = os.path.join(script_location, '..', '..', 'data', 'DGM.txt')
+        expansion = parse_expansion_file(expansion_txt_file_location)
+        self.assertEqual(len(expansion.cards), 166)
 
     def test_parse_expansion_file_into_cards_include_basic_lands(self):
         """
@@ -23,10 +23,10 @@ class TestExpansionParser(unittest.TestCase):
         """
         script_location = os.path.abspath(os.path.dirname(__file__))
         expansion_txt_file_location = os.path.join(script_location, '..', '..', 
-                                                   'expansions', 'M14.txt')
-        cards_list = parse_expansion_file(expansion_txt_file_location, 
+                                                   'data', 'M14.txt')
+        expansion = parse_expansion_file(expansion_txt_file_location, 
                                           include_basic_lands=True)
-        self.assertEqual(len(cards_list), 249)
+        self.assertEqual(len(expansion.cards), 249)
         #import ipdb; ipdb.set_trace();
 
     def test_parse_expansion_file_into_cards_no_basic_lands(self):
@@ -35,9 +35,9 @@ class TestExpansionParser(unittest.TestCase):
         """
         script_location = os.path.abspath(os.path.dirname(__file__))
         expansion_txt_file_location = os.path.join(script_location, '..', '..', 
-                                                   'expansions', 'M14.txt')
-        cards_list = parse_expansion_file(expansion_txt_file_location)
-        self.assertEqual(len(cards_list), 229)
+                                                   'data', 'M14.txt')
+        expansion = parse_expansion_file(expansion_txt_file_location)
+        self.assertEqual(len(expansion.cards), 229)
 
     def test_parse_card_multiple_card_text_lines_activated_ability(self):
         """
@@ -61,15 +61,3 @@ class TestExpansionParser(unittest.TestCase):
         card = _parse_card(card_lines_list)
         self.assertIsInstance(card, Card);
         self.assertEqual(card.text, ['Vigilance', 'Multicolored creatures you control have vigilance.'])
-
-    def test_sort_by_rarity(self):
-        """
-        Tests that an expansion can be successfully sorted by rarity.
-        """
-        script_location = os.path.abspath(os.path.dirname(__file__))
-        expansion_txt_file_location = os.path.join(script_location, '..', '..', 'expansions', 'DGM.txt')
-        cards_list = parse_expansion_file(expansion_txt_file_location)
-        cards_by_rarity = sort_by_rarity(cards_list)
-        for key in ['C', 'U', 'R']:
-            self.assertTrue(key in cards_by_rarity)
-

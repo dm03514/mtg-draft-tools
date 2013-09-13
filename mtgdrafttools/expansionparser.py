@@ -1,14 +1,14 @@
-from collections import defaultdict
 import itertools
 
-from cards import Card
+from mtgdrafttools.expansions.cards import Card
+from mtgdrafttools.expansions.expansions import Expansion
 
 
 def parse_expansion_file(path, include_basic_lands=False):
     """
     Reads a MWS expansion text file into a set of Card objects.
     @param path string
-    @return list of Card 
+    @return `Expansion` instance
     """
     with open(path) as f:
 
@@ -17,17 +17,7 @@ def parse_expansion_file(path, include_basic_lands=False):
         if not include_basic_lands:
             cards_list = [card for card in cards_list 
                             if 'Basic Land' not in card.type_and_class]
-        return cards_list
-
-
-def sort_by_rarity(cards_list):
-    """
-    Given a list of cards returns a dictionary of cards sorted by rarities.
-    """
-    cards_by_rarity = defaultdict(list)
-    for card in cards_list:
-        cards_by_rarity[card.rarity].append(card)
-    return cards_by_rarity
+        return Expansion(cards_list)
 
 
 def _get_sections(f):
