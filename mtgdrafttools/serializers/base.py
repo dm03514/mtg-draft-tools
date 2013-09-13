@@ -17,7 +17,7 @@ class BaseSerializer(object):
             self._handle_card(card)
 
         self._end_serialization()
-        return self._getvalue()
+        return self.getvalue()
 
     def _end_serialization(self):
         """
@@ -25,7 +25,7 @@ class BaseSerializer(object):
         """
         pass
 
-    def _getvalue(self):
+    def getvalue(self):
         """
         Wraps the output object's `getvalue` method
         """
@@ -42,4 +42,3 @@ class BaseSerializer(object):
         Initializes the serialization process.
         """
         pass 
-
