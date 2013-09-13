@@ -11,9 +11,9 @@ class BaseSerializer(object):
         Entry point for serialization.
         Serializes a list of card objects
         """
-        self.cards_list = cards_list
+        self.cards = cards_list
         self._start_serialization()
-        for card in self.cards_list:
+        for card in self.cards:
             self._handle_card(card)
 
         self._end_serialization()
@@ -27,9 +27,9 @@ class BaseSerializer(object):
 
     def _getvalue(self):
         """
-        Wraps the streams object's `getvalue` method
+        Wraps the output object's `getvalue` method
         """
-        return self.stream.getvalue() 
+        return self.output.getvalue() 
 
     def _handle_card(self, card):
         """
