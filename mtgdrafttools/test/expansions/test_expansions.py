@@ -1,4 +1,3 @@
-import os
 import unittest
 
 from mtgdrafttools.expansions.utils import get_expansion

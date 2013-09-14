@@ -10,9 +10,9 @@ def main():
                         help='the block to generate a sealed pool for')
     args = parser.parse_args()
 
-    cards_list = generate_sealed_pool(args.block)
+    pool = generate_sealed_pool(args.block)
 
-    print(serializers.serialize('mws', cards_list))
+    print(serializers.serialize('mws', pool.cards))
 
     
 if __name__ == '__main__':

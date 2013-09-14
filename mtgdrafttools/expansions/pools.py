@@ -24,3 +24,8 @@ class PoolBase(object):
     @property
     def commons(self):
         return self._filter_by_rarity('C')
+
+
+class Pool(PoolBase):
+    def __init__(self, cards_list):
+        self.cards = cards_list    
