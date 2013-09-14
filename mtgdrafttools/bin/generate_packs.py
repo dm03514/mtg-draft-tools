@@ -7,7 +7,7 @@ from mtgdrafttools import serializers
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('expansion', choices=settings.SUPPORTED_EXPANSIONS.keys(),
+    parser.add_argument('expansion', choices=settings.SUPPORTED_EXPANSION_PATHS.keys(),
                         help='the expansion to generate packs for')
     parser.add_argument('-np', '--num_packs', default=1, type=int,
                         help='(default: 1)')
