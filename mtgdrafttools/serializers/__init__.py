@@ -26,11 +26,12 @@ def serialize(serializer_format, cards):
     return s.getvalue()
 
 
-def deserialize(deserializer_format, path_to_file):
+def deserialize(deserializer_format, expansion_abbrev):
     """
     Deserialize a file into an `Expansion`
     @param deserializer_format string 
+    @param expansion_abbrev string
     """
-    d = _deserializers[deserializer_format](path_to_file)
+    d = _deserializers[deserializer_format](expansion_abbrev)
     return d.get_expansion()
 

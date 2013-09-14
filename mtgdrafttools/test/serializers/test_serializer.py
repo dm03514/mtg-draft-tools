@@ -27,6 +27,5 @@ class TestDeserializer(unittest.TestCase):
         """
         Tests that deserialze method returns an expansion object, when given a vaild file.
         """
-        expansion = serializers.deserialize('mws', settings.SUPPORTED_EXPANSION_PATHS['dgm']) 
+        expansion = serializers.deserialize('mws', 'dgm') 
         self.assertIsInstance(expansion, Expansion)
-        

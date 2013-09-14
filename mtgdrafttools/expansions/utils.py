@@ -1,8 +1,6 @@
 import os
 
-from mtgdrafttools import settings
 from mtgdrafttools import serializers
-
 
 def get_expansion(abbrev):
     """
@@ -10,4 +8,4 @@ def get_expansion(abbrev):
     Loads/parses expansions file.
     @param abbrev string one of the supported expansions
     """
-    return serializers.deserialize('mws', settings.SUPPORTED_EXPANSION_PATHS[abbrev]) 
+    return serializers.deserialize('mws', abbrev) 

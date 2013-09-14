@@ -34,8 +34,7 @@ class TestMWSDeserializer(unittest.TestCase):
         Tests that given an expansion text file in the MWS format we 
         can get a set of cards from it.
         """
-        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'DGM.txt')
-        parser = MWSExpansionDeserializer(expansion_txt_file_location)
+        parser = MWSExpansionDeserializer('dgm')
         expansion = parser.get_expansion()
         self.assertEqual(len(expansion.cards), 166)
     
@@ -43,9 +42,7 @@ class TestMWSDeserializer(unittest.TestCase):
         """
         Make sure that basic lands are included in the expansion
         """
-        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'M14.txt')
-        parser = MWSExpansionDeserializer(expansion_txt_file_location, 
-                                          include_basic_lands=True)
+        parser = MWSExpansionDeserializer('m14', include_basic_lands=True)
         expansion = parser.get_expansion()
         self.assertEqual(len(expansion.cards), 249)
 
@@ -53,8 +50,7 @@ class TestMWSDeserializer(unittest.TestCase):
         """
         Make sure that basic lands are NOT included in the expansion 
         """
-        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'M14.txt')
-        parser = MWSExpansionDeserializer(expansion_txt_file_location)
+        parser = MWSExpansionDeserializer('m14')
         expansion = parser.get_expansion()
         self.assertEqual(len(expansion.cards), 229)
 
@@ -64,8 +60,7 @@ class TestMWSDeserializer(unittest.TestCase):
         associated as a list to the `card_text` key
         """
         card_lines_list = ['Pow/Tou:\t4/5', "Card Text:\t%U: Exile AEtherling. Return it to the battlefield under its owner's control at the beginning of the next end step.", '%U: AEtherling is unblockable this turn', '%1: AEtherling gets +1/-1 until end of turn.', '%1: AEtherling gets -1/+1 until end of turn.', 'Artist:\t\tTyler Jacobson']
-        parser = MWSExpansionDeserializer('')
-        card = parser._parse_card(card_lines_list)
+        card = MWSExpansionDeserializer.parse_card(card_lines_list)
         self.assertIsInstance(card, Card);
         self.assertEqual(card.text, ["%U: Exile AEtherling. Return it to the battlefield under its owner's control at the beginning of the next end step.", '%U: AEtherling is unblockable this turn', '%1: AEtherling gets +1/-1 until end of turn.', '%1: AEtherling gets -1/+1 until end of turn.'])
 
@@ -78,7 +73,6 @@ class TestMWSDeserializer(unittest.TestCase):
         card_lines_list = ['Pow/Tou:\t3/6', 
                            'Card Text:\tVigilance', 'Multicolored creatures you control have vigilance.', 'Flavor Text: \tThe route has been known for millenia, but only by those with no means to tell it.', 
                            'Artist:\t\tYeong-Hao Han']
-        parser = MWSExpansionDeserializer('')
-        card = parser._parse_card(card_lines_list)
+        card = MWSExpansionDeserializer.parse_card(card_lines_list)
         self.assertIsInstance(card, Card);
         self.assertEqual(card.text, ['Vigilance', 'Multicolored creatures you control have vigilance.'])

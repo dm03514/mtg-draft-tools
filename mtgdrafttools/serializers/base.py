@@ -1,5 +1,6 @@
 from cStringIO import StringIO
 
+from mtgdrafttools import settings
 from mtgdrafttools.expansions.cards import Card
 from mtgdrafttools.expansions.expansions import Expansion
 
@@ -48,14 +49,18 @@ class BaseSerializer(object):
 
 
 class BaseExpansionDeserializer(object):
+    _expansion_classes = {
+        #'dgm': DGMExpansion
+    }
     
-    def __init__(self, path_to_file, include_basic_lands=False):
+    def __init__(self, expansion_abbrev, include_basic_lands=False):
         """
         Right now just requires a string to a file to open,
         deserializer takes care of opening and parsing it
         @param path_to_file string
         """
-        self.path_to_file = path_to_file
+        self.expansion_abbrev = expansion_abbrev
+        self.path_to_file = settings.SUPPORTED_EXPANSION_PATHS[expansion_abbrev]
         self.include_basic_lands = include_basic_lands
 
     def get_expansion(self):
@@ -64,7 +69,10 @@ class BaseExpansionDeserializer(object):
         """
         with open(self.path_to_file) as f:
             cards_list = self._get_cards(f)
-            return Expansion(cards_list)
+            if self.expansion_abbrev in self._expansion_classes:
+                return self._expansion_classes[self.expansion_abbrev](cards_list)
+            else:
+                return Expansion(cards_list)
 
     def _get_cards(self, f):
         """

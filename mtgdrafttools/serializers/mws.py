@@ -17,7 +17,7 @@ class MWSExpansionDeserializer(BaseExpansionDeserializer):
         Get a list of `Card` objects in the file
         """
         sections = self._get_sections(f)
-        cards_list = [self._parse_card(card_lines_list) for card_lines_list in sections]
+        cards_list = [self.parse_card(card_lines_list) for card_lines_list in sections]
 
         # filter the cards that are not basic lands
         if not self.include_basic_lands:
@@ -49,7 +49,8 @@ class MWSExpansionDeserializer(BaseExpansionDeserializer):
             # the last card
             yield current_section
 
-    def _parse_card(self, card_lines):
+    @classmethod
+    def parse_card(cls, card_lines):
         """
         Converts a list of the card lines, as read from the file into a card object
         @param card_lines list
