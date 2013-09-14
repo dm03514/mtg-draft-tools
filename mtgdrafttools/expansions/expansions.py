@@ -2,9 +2,10 @@ from collections import defaultdict
 from random import choice
 
 from mtgdrafttools.expansions.packs import Pack
+from mtgdrafttools.expansions.pools import PoolBase
 
 
-class Expansion(object):
+class Expansion(PoolBase):
     """
     Contains all the card in the expansions.
     Provides methods for generating packs.
