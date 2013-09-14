@@ -1,8 +1,6 @@
-import os
 import unittest
 
-from mtgdrafttools import settings
-from mtgdrafttools.expansionparser import parse_expansion_file
+from mtgdrafttools.expansions.utils import get_expansion
 
 class TextPacks(unittest.TestCase):
    
@@ -10,8 +8,8 @@ class TextPacks(unittest.TestCase):
         """
         Tests that a pack can be sorted by rarity.
         """ 
-        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'DGM.txt')
-        expansion = parse_expansion_file(expansion_txt_file_location)
+        expansion = get_expansion('dgm')
+
         pack = expansion.generate_pack()
         self.assertEqual(len(pack.cards), 14)
         self.assertEqual(len(pack.commons), 10)

@@ -1,8 +1,7 @@
 import os
 import unittest
 
-from mtgdrafttools import settings
-from mtgdrafttools.expansionparser import parse_expansion_file
+from mtgdrafttools.expansions.utils import get_expansion
 
 
 class TextExpansions(unittest.TestCase):
@@ -11,8 +10,7 @@ class TextExpansions(unittest.TestCase):
         """
         Tests that cards in an expansion can be filtered by rarity.
         """
-        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'DGM.txt')
-        expansion = parse_expansion_file(expansion_txt_file_location)
+        expansion = get_expansion('dgm')
         rarities_dict = {
             'rares': 'R',
             'uncommons': 'U',
@@ -27,8 +25,7 @@ class TextExpansions(unittest.TestCase):
         """
         Tests that an expansion can be successfully sorted by rarity.
         """
-        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'DGM.txt')
-        expansion = parse_expansion_file(expansion_txt_file_location)
+        expansion = get_expansion('dgm')
         cards_by_rarity = expansion._get_cards_by_rarity()
         for key in ['C', 'U', 'R']:
             self.assertTrue(key in cards_by_rarity)
@@ -37,8 +34,7 @@ class TextExpansions(unittest.TestCase):
         """
         Test that a dragons maze pack can be generated successfully.
         """
-        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'DGM.txt')
-        expansion = parse_expansion_file(expansion_txt_file_location)
+        expansion = get_expansion('dgm')
         pack = expansion.generate_pack()
         self.assertEqual(len(pack.cards), 14)
         self.assertEqual(len(pack.commons), 10)

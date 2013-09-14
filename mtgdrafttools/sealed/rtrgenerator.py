@@ -1,7 +1,4 @@
-import os
-
-from mtgdrafttools import settings
-from mtgdrafttools.expansionparser import parse_expansion_file
+from mtgdrafttools.expansions.utils import get_expansion
 from mtgdrafttools.sealed.base_generator import BaseGenerator
 
 class RTRSealedPoolGenerator(BaseGenerator):
@@ -10,15 +7,13 @@ class RTRSealedPoolGenerator(BaseGenerator):
         """
         Generates an RTR pool.  This consists of 2 packs of gtc, rtr, and dgm
         """
-        expansion_files = ['DGM.txt', 'GTC.txt', 'RTR.txt']
+        expansion_abbrevs = ['dgm', 'rtr', 'gtc']
         NUM_PACKS_PER_EXPANSION = 2
 
         cards_list = []
-        script_location = os.path.abspath(os.path.dirname(__file__))
 
-        for expansion_file in expansion_files:
-            expansion_txt_file_location = os.path.join(settings.DATA_DIR, expansion_file)
-            expansion = parse_expansion_file(expansion_txt_file_location)
+        for expansion_abbrev in expansion_abbrevs:
+            expansion = get_expansion(expansion_abbrev)
             for i in range(NUM_PACKS_PER_EXPANSION):
                 cards_list.extend(expansion.generate_pack().cards)
         return cards_list

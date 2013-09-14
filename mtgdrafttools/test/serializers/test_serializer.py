@@ -1,9 +1,7 @@
-import os
 import unittest
 
 from mtgdrafttools import serializers 
-from mtgdrafttools import settings
-from mtgdrafttools.expansionparser import parse_expansion_file
+from mtgdrafttools.expansions.utils import get_expansion
 
 class TestSerializer(unittest.TestCase):
 
@@ -11,8 +9,7 @@ class TestSerializer(unittest.TestCase):
         """
         Tests that we can succuessfully serializer cards in mws format.
         """
-        expansion_txt_file_location = os.path.join(settings.DATA_DIR, 'DGM.txt')
-        expansion = parse_expansion_file(expansion_txt_file_location)
+        expansion = get_expansion('dgm')
         pack = expansion.generate_pack()
         cards_to_serialize = pack.cards + pack.cards
         #import ipdb; ipdb.set_trace();
