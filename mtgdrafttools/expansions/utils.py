@@ -1,7 +1,7 @@
 import os
 
 from mtgdrafttools import settings
-from mtgdrafttools.expansionparser import parse_expansion_file
+from mtgdrafttools import serializers
 
 
 def get_expansion(abbrev):
@@ -12,4 +12,4 @@ def get_expansion(abbrev):
     """
     expansion_txt_file_location = os.path.join(settings.DATA_DIR, 
                                                settings.SUPPORTED_EXPANSIONS[abbrev])
-    return parse_expansion_file(expansion_txt_file_location)
+    return serializers.deserialize('mws', expansion_txt_file_location) 

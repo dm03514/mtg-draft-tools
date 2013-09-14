@@ -5,10 +5,14 @@ Serializers based off of django api:
 
 
 """
-from .mws import MWSSerializer
+from .mws import MWSSerializer, MWSExpansionDeserializer
 
 _serializers = {
     'mws': MWSSerializer
+}
+
+_deserializers = {
+    'mws': MWSExpansionDeserializer
 }
 
 
@@ -20,3 +24,13 @@ def serialize(serializer_format, cards):
     s = _serializers[serializer_format]()
     s.serialize(cards)
     return s.getvalue()
+
+
+def deserialize(deserializer_format, path_to_file):
+    """
+    Deserialize a file into an `Expansion`
+    @param deserializer_format string 
+    """
+    d = _deserializers[deserializer_format](path_to_file)
+    return d.get_expansion()
+
